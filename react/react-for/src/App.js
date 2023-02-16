@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -72,4 +73,36 @@ function App() {
 	);
 }
 
+=======
+import { useEffect, useState } from "react";
+
+function App() {
+  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/tickers")
+      .then((response) => response.json())
+      .then((json) => {
+        setCoins(json);
+        setLoading(false);
+      });
+  }, []);
+  return (
+    <div>
+      <h1>코인 시세 {loading ? "" : `(${coins.length})`}</h1>
+      {loading ? (
+        <strong>로딩 중..</strong>
+      ) : (
+        <select>
+          {coins.map((coin) => (
+            <option>
+              {coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD
+            </option>
+          ))}
+        </select>
+      )}
+    </div>
+  );
+}
+>>>>>>> 24dfdcc4af35f6cc5f72686327546f76fb465ed9
 export default App;
